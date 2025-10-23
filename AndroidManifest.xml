@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.haroonansari.quranapp">
+
+    <!-- ✅ Internet Access (For Quran audio, images, updates, etc.) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- ✅ Check Network State (to know if user is online/offline) -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- ✅ Audio Playback (if you use audio tilawat player) -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- ✅ Storage (For saving downloaded Surah Audio or Offline Quran) -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29" />
+
+    <!-- ✅ Manage audio focus during playback -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <!-- ✅ Optional: To download files or updates inside the app -->
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+
+    <!-- ✅ Optional: Show update notifications -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- ✅ Optional: Record audio (only if you add voice search or voice notes feature) -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- ✅ Optional: Access media files in Android 13+ -->
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Al-Qur'an App"
+        android:theme="@style/Theme.QuranApp"
+        android:usesCleartextTraffic="true">
+
+        <!-- 📖 Main activity -->
+        <activity android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 🎧 Audio Player Service (for background Quran audio) -->
+        <service
+            android:name=".AudioPlayerService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
+
+        <!-- 🌙 Optional: Broadcast receiver (for pause/play notifications) -->
+        <receiver android:name=".AudioControlReceiver" />
+
+    </application>
+
+</manifest>
